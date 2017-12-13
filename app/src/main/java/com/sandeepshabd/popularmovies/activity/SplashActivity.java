@@ -10,7 +10,7 @@ import com.sandeepshabd.popularmovies.presenter.SplashPresenter;
  * The first activity that gets launched on launch of application.
  */
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     SplashPresenter splashPresenter;
 

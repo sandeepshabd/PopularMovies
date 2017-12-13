@@ -9,7 +9,7 @@ import com.sandeepshabd.popularmovies.R;
 /*
 * This activity will show error screen.
 * */
-public class ErrorActivity extends AppCompatActivity {
+public class ErrorActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

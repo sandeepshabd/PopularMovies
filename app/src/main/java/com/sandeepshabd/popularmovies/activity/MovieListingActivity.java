@@ -11,7 +11,7 @@ import com.sandeepshabd.popularmovies.presenter.MovieListingPresenter;
 /*
 * This class will show the movie listings based on popularity
 * */
-public class MovieListingActivity extends AppCompatActivity {
+public class MovieListingActivity extends BaseActivity {
 
     private static final String TAG = MovieListingActivity.class.getSimpleName();
     public static final String MOVIE_DATA = "MOVIE_DATA";
