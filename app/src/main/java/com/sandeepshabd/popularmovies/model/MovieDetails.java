@@ -4,49 +4,50 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * The class will contain the details of the movie.
- *  @see <a href="https://developers.themoviedb.org/3/movies/get-popular-movies"> GET Popular Movie</a>
+ *
+ * @see <a href="https://developers.themoviedb.org/3/movies/get-popular-movies"> GET Popular Movie</a>
  */
 
 class MovieDetails {
 
     @SerializedName("poster_path")
-    String posterPath;
+    public String posterPath;
 
     @SerializedName("adult")
-    boolean totalResult;
+    public boolean totalResult;
 
     @SerializedName("overview")
-    String overview;
+    public String overview;
 
     @SerializedName("release_date")
-    String releaseDate;
+    public String releaseDate;
 
     @SerializedName("id")
-    int id;
+    public int id;
 
     @SerializedName("original_title")
-    String originalTitle;
+    public String originalTitle;
 
     @SerializedName("original_language")
-    String originalLanguage;
+    public String originalLanguage;
 
     @SerializedName("title")
-    String title;
+    public String title;
 
     @SerializedName("backdrop_path")
-    String backdropPath;
+    public String backdropPath;
 
     @SerializedName("popularity")
-    float popularity;
+    public float popularity;
 
     @SerializedName("vote_count")
-    int voteCount;
+    public int voteCount;
 
     @SerializedName("video")
-    boolean video;
+    public boolean video;
 
     @SerializedName("vote_average")
-    float  voteAverage;
+    public float voteAverage;
 
 
 }
