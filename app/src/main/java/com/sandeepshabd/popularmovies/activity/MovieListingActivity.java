@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.sandeepshabd.popularmovies.R;
+import com.sandeepshabd.popularmovies.presenter.MovieListingPresenter;
 
 
 /*
@@ -14,12 +15,14 @@ public class MovieListingActivity extends AppCompatActivity {
 
     private static final String TAG = MovieListingActivity.class.getSimpleName();
     public static final String MOVIE_DATA = "MOVIE_DATA";
+    private MovieListingPresenter movieListingPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_listing);
         String movieData = getIntent().getStringExtra(MOVIE_DATA);
-        Log.i(TAG, "onCreate: movieData:"+movieData);
+        movieListingPresenter = new MovieListingPresenter(this);
+        movieListingPresenter.parseMovieData(movieData);
     }
 }
