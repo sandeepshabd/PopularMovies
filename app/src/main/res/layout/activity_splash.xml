@@ -7,7 +7,7 @@
     android:background="?android:attr/colorPressedHighlight"
     android:backgroundTint="@android:color/holo_orange_light"
     android:fadingEdge="horizontal"
-    tools:context=".SplashActivity">
+    tools:context=".activity.SplashActivity">
 
     <TextView
         android:id="@+id/textView"
