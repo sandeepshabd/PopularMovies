@@ -17,9 +17,9 @@ import java.util.Locale;
 
 public class MovieDetails {
     private static final String TAG = MovieDetails.class.getSimpleName();
-    final private DecimalFormat decimalFormat = new DecimalFormat("#.##");
-    final private SimpleDateFormat dateFormatUS = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-    final private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+    private static final DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    private static final SimpleDateFormat dateFormatUS = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
     @SerializedName("poster_path")
     public String posterPath;
@@ -76,7 +76,7 @@ public class MovieDetails {
             Date date = dateFormat.parse(releaseDate);
             releaseDate = dateFormatUS.format(date);
         } catch (Exception e) {
-           Log.e(TAG, "getPopularity: date exception");
+            Log.e(TAG, "getPopularity: date exception");
         }
         return releaseDate;
     }

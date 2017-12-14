@@ -8,10 +8,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.RequestManager;
 import com.sandeepshabd.popularmovies.R;
+import com.sandeepshabd.popularmovies.activity.IMovieDataFetcher;
 import com.sandeepshabd.popularmovies.backOffice.BackOfficeDetails;
 import com.sandeepshabd.popularmovies.model.MovieDetails;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import hugo.weaving.DebugLog;
 
@@ -21,12 +22,15 @@ import hugo.weaving.DebugLog;
 
 public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
-    private List<MovieDetails> movieDetails;
+    private ArrayList<MovieDetails> movieDetails;
     private RequestManager glide;
+    private IMovieDataFetcher movieDataFetcher;
 
-    public MovieListingAdapter(RequestManager glide, List<MovieDetails> movieDetails) {
+    public MovieListingAdapter(RequestManager glide, ArrayList<MovieDetails> movieDetails,
+                               IMovieDataFetcher movieDataFetcher) {
         this.movieDetails = movieDetails;
         this.glide = glide;
+        this.movieDataFetcher = movieDataFetcher;
     }
 
     @Override
@@ -49,8 +53,10 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         movieViewHolder.movieTitle.setText("Title: "+movieDetails.get(position).title);
         movieViewHolder.movieRating.setText("Popularity: "+movieDetails.get(position).getPopularity());
         movieViewHolder.movieReleaseDate.setText("Release Date: "+movieDetails.get(position).getReleaseDate());
-
-
+        
+        if(position+1 == getItemCount()){
+            movieDataFetcher.fetchMoreData();
+        }
     }
 
     private void loadImage(ImageView view, String url) {
@@ -64,5 +70,10 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     @Override
     public int getItemCount() {
         return movieDetails.size();
+    }
+
+    public void addDataToList(ArrayList<MovieDetails> newMovieDetails){
+        movieDetails.addAll(newMovieDetails);
+        notifyDataSetChanged();
     }
 }

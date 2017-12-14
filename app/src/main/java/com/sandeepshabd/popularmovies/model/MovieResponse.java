@@ -2,7 +2,7 @@ package com.sandeepshabd.popularmovies.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * This is the reponse object that we get on GET call to the Movie Database.
@@ -22,6 +22,6 @@ public class MovieResponse {
     public int totalPages;
 
     @SerializedName("results")
-    public List<MovieDetails> movieDetailsList;
+    public ArrayList<MovieDetails> movieDetailsList;
 
 }
