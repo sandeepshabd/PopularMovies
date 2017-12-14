@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.android.volley.VolleyError;
 import com.sandeepshabd.popularmovies.activity.ErrorActivity;
+import com.sandeepshabd.popularmovies.activity.ISplashInvoker;
 import com.sandeepshabd.popularmovies.activity.MovieListingActivity;
 import com.sandeepshabd.popularmovies.backOffice.BackOfficeDetails;
 import com.sandeepshabd.popularmovies.helper.VolleyRequestHelper;
@@ -21,12 +22,12 @@ import hugo.weaving.DebugLog;
 
 public class SplashPresenter implements VolleyRequestHelper.IVolleyReponseConsumer {
 
-    private Context context;
+    private ISplashInvoker splashInvoker;
 
     private SplashPresenter(){}
 
-    public SplashPresenter(Context context){
-        this.context = context;
+    public SplashPresenter(ISplashInvoker splashInvoker){
+        this.splashInvoker = splashInvoker;
     }
 
     @DebugLog
@@ -49,23 +50,25 @@ public class SplashPresenter implements VolleyRequestHelper.IVolleyReponseConsum
 
     @DebugLog
     private void callMovieListing(String response) {
-        Intent movieListingIntent = new Intent(context, MovieListingActivity.class);
+        Intent movieListingIntent = new Intent(splashInvoker.getActivityContext(), MovieListingActivity.class);
         movieListingIntent.putExtra(MovieListingActivity.MOVIE_DATA,response );
-        context.startActivity(movieListingIntent);
+        splashInvoker.getActivityContext().startActivity(movieListingIntent);
+        splashInvoker.finishTheActivity();
     }
 
     @DebugLog
     @Override
     public void onErrorReponse(VolleyError volleyError) {
         // call errorActivity
-        Intent errorIntent = new Intent(context, ErrorActivity.class);
-        context.startActivity(errorIntent);
+        Intent errorIntent = new Intent(splashInvoker.getActivityContext(), ErrorActivity.class);
+        splashInvoker.getActivityContext().startActivity(errorIntent);
+        splashInvoker.finishTheActivity();
     }
 
     @DebugLog
     public void startFetchingMovieData() {
         VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper();
-        volleyRequestHelper.makeVolleyGetRequest(context,
+        volleyRequestHelper.makeVolleyGetRequest(splashInvoker.getActivityContext(),
                 BackOfficeDetails.getPopularMoviesURL(1),
                 this);
     }

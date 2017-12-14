@@ -3,13 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="15dp"
+    android:orientation="vertical"
     >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/movieListing_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+
+        <ImageButton
+            android:id="@+id/showAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:src="@mipmap/ic_info_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+
+            android:clickable="true"/>
+
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/movieListingRecyclerView"
        android:layout_height="match_parent"
+        android:background="@color/movieListColor"
+        android:layout_marginTop="1dp"
         android:layout_width="match_parent">
     </android.support.v7.widget.RecyclerView>
+
+
 
 
 </LinearLayout>
