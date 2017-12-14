@@ -2,13 +2,22 @@ package com.sandeepshabd.popularmovies.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * The class will contain the details of the movie.
  *
  * @see <a href="https://developers.themoviedb.org/3/movies/get-popular-movies"> GET Popular Movie</a>
  */
 
-class MovieDetails {
+public class MovieDetails {
+
+    final DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    final SimpleDateFormat dateFormatUS = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+    final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @SerializedName("poster_path")
     public String posterPath;
@@ -48,6 +57,25 @@ class MovieDetails {
 
     @SerializedName("vote_average")
     public float voteAverage;
+
+
+    public float getPopularity() {
+        try {
+            popularity = Float.valueOf(decimalFormat.format(popularity));
+        } catch (Exception e) {
+        }
+        return popularity;
+
+    }
+
+    public String getReleaseDate() {
+        try {
+            Date date = dateFormat.parse(releaseDate);
+            releaseDate = dateFormatUS.format(date);
+        } catch (Exception e) {
+        }
+        return releaseDate;
+    }
 
 
 }
