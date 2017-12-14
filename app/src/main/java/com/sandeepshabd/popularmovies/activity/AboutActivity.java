@@ -1,8 +1,6 @@
 package com.sandeepshabd.popularmovies.activity;
 
-import android.content.Context;
 import android.os.Bundle;
-
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -17,7 +15,7 @@ public class AboutActivity extends BaseActivity {
         setContentView(R.layout.activity_about);
         Toolbar aboutToolbar = findViewById(R.id.about_toolbar);
         setSupportActionBar(aboutToolbar);
-        aboutToolbar.setTitle(R.string.about_title);
+        setTitle(R.string.about_title);
         aboutToolbar.setNavigationIcon(R.mipmap.ic_navigate_before_black_24dp);
         aboutToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

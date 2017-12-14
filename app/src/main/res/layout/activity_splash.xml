@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/colorPressedHighlight"
-    android:backgroundTint="@android:color/holo_orange_light"
     android:fadingEdge="horizontal"
     tools:context=".activity.SplashActivity">
 
