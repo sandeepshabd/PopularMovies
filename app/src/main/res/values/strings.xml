@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Popular Movies</string>
     <string name="popular_movies">POPULAR MOVIES</string>
+    <string name="about_title">About</string>
 </resources>

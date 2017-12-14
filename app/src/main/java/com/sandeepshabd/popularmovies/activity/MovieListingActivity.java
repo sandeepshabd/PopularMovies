@@ -43,7 +43,7 @@ public class MovieListingActivity extends BaseActivity {
         context = this;
         setContentView(R.layout.activity_movie_listing);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = findViewById(R.id.movieListing_toolbar);
         setSupportActionBar(myToolbar);
         myToolbar.setTitle(R.string.popular_movies);
 

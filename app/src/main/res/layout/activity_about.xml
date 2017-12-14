@@ -6,11 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".activity.AboutActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/about_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
 
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 
 
     <TextView
         android:id="@+id/aboutText"
         android:layout_width="match_parent"
+        android:layout_marginTop="60dp"
         android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>
