@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -28,22 +30,20 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
 
     private static final String TAG = MovieListingActivity.class.getSimpleName();
     public static final String MOVIE_DATA = "MOVIE_DATA";
-    private Context context;
     private MovieListingPresenter movieListingPresenter;
     private int pageCount = 1; //initialize the page count to 1.
     private RecyclerView movieListingRecyclerView;
     private MovieResponse movieResponse;
     private ImageButton aboutInfoButton;
     private MovieListingAdapter movieListingAdapter;
+    private SpinnerDialog spinnerDialog;
 
 
     @DebugLog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this;
         setContentView(R.layout.activity_movie_listing);
-
         Toolbar movieListingToolbar = findViewById(R.id.movieListing_toolbar);
         setSupportActionBar(movieListingToolbar);
         movieListingToolbar.setTitle(R.string.popular_movies);
@@ -52,8 +52,8 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
         aboutInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent showAboutScreen = new Intent(context, AboutActivity.class);
-                context.startActivity(showAboutScreen);
+                Intent showAboutScreen = new Intent(getActivityContext(), AboutActivity.class);
+                getActivityContext().startActivity(showAboutScreen);
             }
         });
         String movieData = getIntent().getStringExtra(MOVIE_DATA);
@@ -72,7 +72,17 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        closeSpinner();
+
+    }
+
+
+    @Override
     public void fetchMoreData() {
+        spinnerDialog = new SpinnerDialog(this);
+        spinnerDialog.show();
         movieListingPresenter.startFetchingMovieData(pageCount);
         pageCount++;
     }
@@ -89,8 +99,20 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
 
     @Override
     public void updateMovieListing(MovieResponse movieReponseData) {
+        closeSpinner();
         movieListingAdapter.addDataToList(movieReponseData.movieDetailsList);
         Toast.makeText(MovieListingActivity.this,
-                "List updated. please scroll.",Toast.LENGTH_LONG).show();
+                "List updated. please scroll.", Toast.LENGTH_LONG).show();
     }
+
+    private void closeSpinner() {
+        try {
+            spinnerDialog.hide();
+            spinnerDialog = null;
+        }catch (Exception e){
+            Log.e(TAG, "updateMovieListing: hiding spinner exception.");
+        }
+    }
+
+
 }
