@@ -15,9 +15,9 @@ import hugo.weaving.DebugLog;
 public class MovieListingPresenter {
     private static final String TAG = MovieListingPresenter.class.getSimpleName();
 
-            Context context;
+    private Context context;
 
-    public MovieListingPresenter(Context context){
+    public MovieListingPresenter(Context context) {
         this.context = context;
     }
 
@@ -25,7 +25,7 @@ public class MovieListingPresenter {
     public MovieResponse parseMovieData(String movieData) {
         Gson gson = new Gson();
         MovieResponse movieResponse = gson.fromJson(movieData, MovieResponse.class);
-        Log.i(TAG, "parseMovieData: movie list size:"+ movieResponse.movieDetailsList.size());
+        Log.i(TAG, "parseMovieData: movie list size:" + movieResponse.movieDetailsList.size());
         return movieResponse;
     }
 }

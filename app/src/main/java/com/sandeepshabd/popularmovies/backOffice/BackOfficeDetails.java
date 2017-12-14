@@ -30,7 +30,7 @@ public class BackOfficeDetails {
     @DebugLog
     public static String getImagePathURL(String uri){
         //eg. https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg
-        return BASE_IMG_PATH + uri.substring(0);
+        return BASE_IMG_PATH + uri;
     }
 
 

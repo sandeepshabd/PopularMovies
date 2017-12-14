@@ -6,9 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sandeepshabd.popularmovies.R;
 import com.sandeepshabd.popularmovies.backOffice.BackOfficeDetails;
 import com.sandeepshabd.popularmovies.model.MovieDetails;
@@ -23,12 +21,17 @@ import hugo.weaving.DebugLog;
 
 public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
-    List<MovieDetails> movieDetails;
-    RequestManager glide;
+    private List<MovieDetails> movieDetails;
+    private RequestManager glide;
 
     public MovieListingAdapter(RequestManager glide, List<MovieDetails> movieDetails) {
         this.movieDetails = movieDetails;
         this.glide = glide;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 
     @DebugLog
@@ -36,8 +39,7 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View movieCardView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_card_view, parent, false);
-        MovieViewHolder movieViewHolder = new MovieViewHolder(movieCardView);
-        return movieViewHolder;
+        return new MovieViewHolder(movieCardView);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     }
 
-    void loadImage(ImageView view, String url) {
+    private void loadImage(ImageView view, String url) {
         try {
             glide.asBitmap()
                     .load(url)

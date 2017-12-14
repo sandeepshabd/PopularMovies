@@ -15,7 +15,7 @@ import hugo.weaving.DebugLog;
 
 public class VolleyRequestHelper {
 
-    Context context;
+    private Context context;
 
     @DebugLog
     public void makeVolleyGetRequest(Context context, String url, IVolleyReponseConsumer volleyReponseConsumer) {

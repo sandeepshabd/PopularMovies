@@ -1,6 +1,5 @@
 package com.sandeepshabd.popularmovies.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.sandeepshabd.popularmovies.R;
@@ -12,7 +11,7 @@ import com.sandeepshabd.popularmovies.presenter.SplashPresenter;
 
 public class SplashActivity extends BaseActivity {
 
-    SplashPresenter splashPresenter;
+    private SplashPresenter splashPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

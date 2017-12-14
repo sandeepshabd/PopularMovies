@@ -1,5 +1,7 @@
 package com.sandeepshabd.popularmovies.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.text.DecimalFormat;
@@ -14,10 +16,10 @@ import java.util.Locale;
  */
 
 public class MovieDetails {
-
-    final DecimalFormat decimalFormat = new DecimalFormat("#.##");
-    final SimpleDateFormat dateFormatUS = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-    final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final String TAG = MovieDetails.class.getSimpleName();
+    final private DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    final private SimpleDateFormat dateFormatUS = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+    final private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
     @SerializedName("poster_path")
     public String posterPath;
@@ -63,6 +65,7 @@ public class MovieDetails {
         try {
             popularity = Float.valueOf(decimalFormat.format(popularity));
         } catch (Exception e) {
+            Log.e(TAG, "getPopularity: float exception");
         }
         return popularity;
 
@@ -73,6 +76,7 @@ public class MovieDetails {
             Date date = dateFormat.parse(releaseDate);
             releaseDate = dateFormatUS.format(date);
         } catch (Exception e) {
+           Log.e(TAG, "getPopularity: date exception");
         }
         return releaseDate;
     }
