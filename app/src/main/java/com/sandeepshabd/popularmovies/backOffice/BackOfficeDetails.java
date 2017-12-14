@@ -11,8 +11,8 @@ public class BackOfficeDetails {
     //Provides the base url. It can be pointed to localhost if a fake server is used to
     //mock the BO.
     final private static String BASE_URL = "https://api.themoviedb.org/3";
-    final private static String API_KEY = "71adffcb631e5befc6b880ca18d29e09";
     final private static String BASE_IMG_PATH = "https://image.tmdb.org/t/p/w500";
+    final private static String API_KEY = "";
 
 
     // The method returns the uri for popular movie
