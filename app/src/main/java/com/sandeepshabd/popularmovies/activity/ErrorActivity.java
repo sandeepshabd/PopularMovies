@@ -22,8 +22,6 @@ public class ErrorActivity extends BaseActivity {
         Toolbar errorToolbar = findViewById(R.id.error_toolbar);
         setSupportActionBar(errorToolbar);
         setTitle(R.string.error_msg_title);
-
-
     }
 
     @DebugLog
