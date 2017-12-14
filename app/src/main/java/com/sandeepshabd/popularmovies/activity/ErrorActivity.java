@@ -1,6 +1,5 @@
 package com.sandeepshabd.popularmovies.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -9,7 +8,7 @@ import com.sandeepshabd.popularmovies.R;
 /*
 * This activity will show error screen.
 * */
-public class ErrorActivity extends AppCompatActivity {
+public class ErrorActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
