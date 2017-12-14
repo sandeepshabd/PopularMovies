@@ -5,4 +5,5 @@
     <string name="close">Close</string>
     <string name="error_msg">There was error while fetching the data. Please try after some time.</string>
     <string name="error_msg_title">Problem !</string>
+    <string name="pleaseScroll">List updated. Please scroll.</string>
 </resources>

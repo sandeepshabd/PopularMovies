@@ -102,7 +102,7 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
         closeSpinner();
         movieListingAdapter.addDataToList(movieReponseData.movieDetailsList);
         Toast.makeText(MovieListingActivity.this,
-                "List updated. please scroll.", Toast.LENGTH_LONG).show();
+                R.string.pleaseScroll, Toast.LENGTH_LONG).show();
     }
 
     private void closeSpinner() {
