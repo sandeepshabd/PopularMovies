@@ -2,9 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
     android:orientation="vertical"
-    >
+    android:padding="15dp">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/movieListing_toolbar"
@@ -19,24 +18,21 @@
             android:id="@+id/showAbout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:src="@mipmap/ic_info_black_24dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:clickable="true"
 
-            android:clickable="true"/>
+            android:src="@mipmap/ic_info_black_24dp" />
 
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/movieListingRecyclerView"
-       android:layout_height="match_parent"
-        android:background="@color/movieListColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="1dp"
-        android:layout_width="match_parent">
-    </android.support.v7.widget.RecyclerView>
-
-
+        android:background="@color/movieListColor"></android.support.v7.widget.RecyclerView>
 
 
 </LinearLayout>

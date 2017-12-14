@@ -24,9 +24,10 @@ public class SplashPresenter implements VolleyRequestHelper.IVolleyReponseConsum
 
     private ISplashInvoker splashInvoker;
 
-    private SplashPresenter(){}
+    private SplashPresenter() {
+    }
 
-    public SplashPresenter(ISplashInvoker splashInvoker){
+    public SplashPresenter(ISplashInvoker splashInvoker) {
         this.splashInvoker = splashInvoker;
     }
 
@@ -51,7 +52,7 @@ public class SplashPresenter implements VolleyRequestHelper.IVolleyReponseConsum
     @DebugLog
     private void callMovieListing(String response) {
         Intent movieListingIntent = new Intent(splashInvoker.getActivityContext(), MovieListingActivity.class);
-        movieListingIntent.putExtra(MovieListingActivity.MOVIE_DATA,response );
+        movieListingIntent.putExtra(MovieListingActivity.MOVIE_DATA, response);
         splashInvoker.getActivityContext().startActivity(movieListingIntent);
         splashInvoker.finishTheActivity();
     }

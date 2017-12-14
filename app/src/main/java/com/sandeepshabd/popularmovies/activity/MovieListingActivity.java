@@ -27,12 +27,11 @@ public class MovieListingActivity extends BaseActivity {
 
     private static final String TAG = MovieListingActivity.class.getSimpleName();
     public static final String MOVIE_DATA = "MOVIE_DATA";
-    private Context context ;
+    private Context context;
     private MovieListingPresenter movieListingPresenter;
     private int pageCount = 1; //initialize the page count to 1.
     private RecyclerView movieListingRecyclerView;
     private MovieResponse movieResponse;
-    private Toolbar toolbar;
     private ImageButton aboutInfoButton;
 
 
@@ -43,9 +42,9 @@ public class MovieListingActivity extends BaseActivity {
         context = this;
         setContentView(R.layout.activity_movie_listing);
 
-        Toolbar myToolbar = findViewById(R.id.movieListing_toolbar);
-        setSupportActionBar(myToolbar);
-        myToolbar.setTitle(R.string.popular_movies);
+        Toolbar movieListingToolbar = findViewById(R.id.movieListing_toolbar);
+        setSupportActionBar(movieListingToolbar);
+        movieListingToolbar.setTitle(R.string.popular_movies);
 
         aboutInfoButton = findViewById(R.id.showAbout);
         aboutInfoButton.setOnClickListener(new View.OnClickListener() {
