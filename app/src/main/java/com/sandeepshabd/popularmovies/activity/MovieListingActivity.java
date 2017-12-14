@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
@@ -23,7 +24,7 @@ import hugo.weaving.DebugLog;
 /*
 * This class will show the movie listings based on popularity
 * */
-public class MovieListingActivity extends BaseActivity {
+public class MovieListingActivity extends BaseActivity implements IMovieDataFetcher, IMovieListingInvoker {
 
     private static final String TAG = MovieListingActivity.class.getSimpleName();
     public static final String MOVIE_DATA = "MOVIE_DATA";
@@ -33,6 +34,7 @@ public class MovieListingActivity extends BaseActivity {
     private RecyclerView movieListingRecyclerView;
     private MovieResponse movieResponse;
     private ImageButton aboutInfoButton;
+    private MovieListingAdapter movieListingAdapter;
 
 
     @DebugLog
@@ -57,13 +59,38 @@ public class MovieListingActivity extends BaseActivity {
         String movieData = getIntent().getStringExtra(MOVIE_DATA);
         movieListingPresenter = new MovieListingPresenter(this);
         movieResponse = movieListingPresenter.parseMovieData(movieData);
+
         movieListingRecyclerView = findViewById(R.id.movieListingRecyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         movieListingRecyclerView.setLayoutManager(llm);
         movieListingRecyclerView.setHasFixedSize(false);
-        MovieListingAdapter movieListingAdapter
-                = new MovieListingAdapter(Glide.with(getApplicationContext())
-                , movieResponse.movieDetailsList);
+
+        movieListingAdapter
+                = new MovieListingAdapter(Glide.with(this)
+                , movieResponse.movieDetailsList, this);
         movieListingRecyclerView.setAdapter(movieListingAdapter);
+    }
+
+    @Override
+    public void fetchMoreData() {
+        movieListingPresenter.startFetchingMovieData(pageCount);
+        pageCount++;
+    }
+
+    @Override
+    public void finishTheActivity() {
+        finish();
+    }
+
+    @Override
+    public Context getActivityContext() {
+        return this;
+    }
+
+    @Override
+    public void updateMovieListing(MovieResponse movieReponseData) {
+        movieListingAdapter.addDataToList(movieReponseData.movieDetailsList);
+        Toast.makeText(MovieListingActivity.this,
+                "List updated. please scroll.",Toast.LENGTH_LONG).show();
     }
 }

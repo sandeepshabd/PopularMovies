@@ -60,7 +60,19 @@ public class SplashPresenter implements VolleyRequestHelper.IVolleyReponseConsum
     @DebugLog
     @Override
     public void onErrorReponse(VolleyError volleyError) {
-        // call errorActivity
+        // call errorActivity with some delay for good UX experience.
+        new Timer().schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        callErrorActivity();
+                    }
+                },
+                1000
+        );
+    }
+
+    private void callErrorActivity() {
         Intent errorIntent = new Intent(splashInvoker.getActivityContext(), ErrorActivity.class);
         splashInvoker.getActivityContext().startActivity(errorIntent);
         splashInvoker.finishTheActivity();
