@@ -22,6 +22,6 @@ public class MovieResponse {
     public int totalPages;
 
     @SerializedName("results")
-    public ArrayList<MovieDetails> movieDetailsList;
+    public ArrayList<MovieDetails> movieDetailsList = new ArrayList<>(); //in case there is no data.
 
 }
