@@ -15,7 +15,7 @@ public class AboutActivity extends BaseActivity {
         setContentView(R.layout.activity_about);
         Toolbar aboutToolbar = findViewById(R.id.about_toolbar);
         setSupportActionBar(aboutToolbar);
-        aboutToolbar.setTitle(R.string.about_title);
+        setTitle(R.string.about_title);
         aboutToolbar.setNavigationIcon(R.mipmap.ic_navigate_before_black_24dp);
         aboutToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
