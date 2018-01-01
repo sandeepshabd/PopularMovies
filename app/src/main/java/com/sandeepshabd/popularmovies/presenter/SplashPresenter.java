@@ -82,7 +82,7 @@ public class SplashPresenter implements VolleyRequestHelper.IVolleyReponseConsum
     public void startFetchingMovieData() {
         VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper();
         volleyRequestHelper.makeVolleyGetRequest(splashInvoker.getActivityContext(),
-                BackOfficeDetails.getPopularMoviesURL(1),
+                BackOfficeDetails.getNowplayingUrlURL(1),
                 this);
     }
 }

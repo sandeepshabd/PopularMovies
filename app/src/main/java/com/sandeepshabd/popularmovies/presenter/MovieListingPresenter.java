@@ -45,8 +45,9 @@ public class MovieListingPresenter implements VolleyRequestHelper.IVolleyReponse
     public void startFetchingMovieData(int pageNumber) {
         VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper();
         volleyRequestHelper.makeVolleyGetRequest(movieListingInvoker.getActivityContext(),
-                BackOfficeDetails.getPopularMoviesURL(pageNumber + 1),
+                BackOfficeDetails.getNowplayingUrlURL(pageNumber + 1),
                 this);
+
     }
 
     @Override
