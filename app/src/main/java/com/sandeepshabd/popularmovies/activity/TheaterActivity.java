@@ -1,5 +1,6 @@
 package com.sandeepshabd.popularmovies.activity;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -58,6 +59,11 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
         theaterRecyclerView.setAdapter(theaterListingAdapter);
         closeSpinner();
 
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override

@@ -57,6 +57,17 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         if(position+1 == getItemCount()){
             movieDataFetcher.fetchMoreData();
         }
+
+        callTheaterListing(movieViewHolder, movieDetails.get(position).title);
+    }
+
+    private void callTheaterListing(MovieViewHolder movieViewHolder, final String movieTitle) {
+        movieViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                movieDataFetcher.onMovieSelected(movieTitle);
+            }
+        });
     }
 
     private void loadImage(ImageView view, String url) {

@@ -1,5 +1,7 @@
 package com.sandeepshabd.popularmovies.activity;
 
+import android.content.Context;
+
 import com.sandeepshabd.popularmovies.model.TheaterAndTimings;
 
 import java.util.ArrayList;
@@ -11,4 +13,5 @@ import java.util.ArrayList;
 public interface ITheaterdataFetcher {
 
     void onTheaterDataFecthed(ArrayList<TheaterAndTimings> theaterTimingList);
+    Context getContext();
 }
