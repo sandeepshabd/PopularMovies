@@ -4,8 +4,6 @@ import android.text.TextUtils;
 
 import hugo.weaving.DebugLog;
 
-import static com.sandeepshabd.popularmovies.BuildConfig.OPEN_MOVIE_API;
-
 /**
  * The class will provide the details for back office URLS.
  */
@@ -14,11 +12,18 @@ public class BackOfficeDetails {
 
     //Provides the base url. It can be pointed to localhost if a fake server is used to
     //mock the BO.
-    final private static String BASE_URL = "https://api.themoviedb.org/3";
-    final private static String BASE_IMG_PATH = "https://image.tmdb.org/t/p/w500";
+    //open m0vie details
     final private static String API_KEY_FOR_OPENMOVIE = ""; //input your key here.
-    final private static String POPULAR_URL = "/movie/popular?api_key=";
-    final private static String NOWPLAYING_URL = "/movie/now_playing?api_key=";
+    final private static String BASE_IMG_PATH = "https://image.tmdb.org/t/p/w500";
+    final private static String BASE_URL_FOR_OPENMOVIE = "https://api.themoviedb.org/3";
+    final private static String POPULAR_URL_FOR_OPENMOVIE = "/movie/popular?api_key=";
+    final private static String NOWPLAYING_URL_FOR_OPENMOVIE = "/movie/now_playing?api_key=";
+
+    //http://developer.tmsapi.com/
+    final private static String API_KEY_FOR_TMS = ""; //input your key here.
+    final private static String BASE_URL_FOR_MS = "http://data.tmsapi.com";
+    final private static String THEATERS_URL_FOR_MS = "/v1.1/movies/showings?api_key=";
+
 
 
     // The method returns the uri for popular movie
@@ -28,7 +33,7 @@ public class BackOfficeDetails {
             //enforcing the developer to input the API key.
             throw new RuntimeException("API KEY cannot be empty.");
         }
-        return BASE_URL + POPULAR_URL + API_KEY_FOR_OPENMOVIE + "&language=en-US&page=" + page;
+        return BASE_URL_FOR_OPENMOVIE + POPULAR_URL_FOR_OPENMOVIE + API_KEY_FOR_OPENMOVIE + "&language=en-US&page=" + page;
     }
 
     @DebugLog
@@ -37,7 +42,16 @@ public class BackOfficeDetails {
             //enforcing the developer to input the API key.
             throw new RuntimeException("API KEY cannot be empty.");
         }
-        return BASE_URL + NOWPLAYING_URL + API_KEY_FOR_OPENMOVIE + "&language=en-US&page=" + page ;
+        return BASE_URL_FOR_OPENMOVIE + NOWPLAYING_URL_FOR_OPENMOVIE + API_KEY_FOR_OPENMOVIE + "&language=en-US&page=" + page ;
+    }
+
+    @DebugLog
+    public static String getNMovieTheaters(String date, String lat, String lon) {
+        if (TextUtils.isEmpty(API_KEY_FOR_OPENMOVIE)) {
+            //enforcing the developer to input the API key.
+            throw new RuntimeException("API KEY cannot be empty.");
+        }
+        return BASE_URL_FOR_MS + THEATERS_URL_FOR_MS + API_KEY_FOR_TMS + "&startDate="+date+"&lng=="+lon;
     }
 
     @DebugLog
