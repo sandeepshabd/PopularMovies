@@ -7,6 +7,8 @@ import com.sandeepshabd.popularmovies.R;
 
 public class TheaterActivity extends AppCompatActivity implements ITheaterView {
 
+    public static final String MOVIE_TITLE = "MOVIE_TITLE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,4 +19,6 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView {
     public void onTheaterSelected(String title) {
 
     }
+
+
 }

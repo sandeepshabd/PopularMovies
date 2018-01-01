@@ -88,6 +88,13 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
     }
 
     @Override
+    public void onMovieSelected(String title) {
+        Intent myIntent = new Intent(MovieListingActivity.this, TheaterActivity.class);
+        myIntent.putExtra(TheaterActivity.MOVIE_TITLE, title); //Optional parameters
+        MovieListingActivity.this.startActivity(myIntent);
+    }
+
+    @Override
     public void finishTheActivity() {
         finish();
     }
