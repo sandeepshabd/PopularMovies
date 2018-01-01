@@ -23,11 +23,11 @@ public class MovieViewHolder extends RecyclerView.ViewHolder{
     public MovieViewHolder(View itemView) {
         super(itemView);
 
-        cardView = (CardView)itemView.findViewById(R.id.movieCardViewID);
-        moviePoster = (ImageView)itemView.findViewById(R.id.moviePoster);
-        movieTitle = (TextView)itemView.findViewById(R.id.movieTitle);
-        movieRating = (TextView)itemView.findViewById(R.id.movieRating);
-        movieReleaseDate = (TextView)itemView.findViewById(R.id.releaseDate);
+        cardView = itemView.findViewById(R.id.movieCardViewID);
+        moviePoster = itemView.findViewById(R.id.moviePoster);
+        movieTitle = itemView.findViewById(R.id.movieTitle);
+        movieRating =itemView.findViewById(R.id.movieRating);
+        movieReleaseDate = itemView.findViewById(R.id.releaseDate);
 
     }
 }
