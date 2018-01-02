@@ -56,9 +56,9 @@ public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyRepo
 
     public void startFetchingTheaterData(String movieTitle) {
         movieTitleLocal = movieTitle;
-        boolean locationSame = false;
         Location myLocation = getLocation();
 
+        //todo - with location change to greater distance, refresh the old data.
         if (movieAndTheaters == null
                 || movieAndTheaters.movieTheaterList == null
                 || movieAndTheaters.movieTheaterList.length == 0) {
@@ -67,7 +67,6 @@ public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyRepo
             } else {
                 startFetchingMovieData(myLocation.getLatitude() + "", myLocation.getLongitude() + "");
             }
-            startFetchingMovieData(LAT_STRING, LNG_STRING);
         } else {
             filterDataAndCallSuccess();
         }
