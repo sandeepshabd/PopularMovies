@@ -3,6 +3,7 @@ package com.sandeepshabd.popularmovies.activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -42,8 +43,16 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
             }
         });
         theaterRecyclerView = findViewById(R.id.theaterListingRecyclerView);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        theaterRecyclerView.setLayoutManager(llm);
+        theaterRecyclerView.setHasFixedSize(false);
+
+        theaterListingAdapter = new TheaterListingAdapter(this, new ArrayList<TheaterAndTimings>());
+        theaterRecyclerView.setAdapter(theaterListingAdapter);
         theaterLisitingPresenter = new TheaterLisitingPresenter(this);
+
         fetchTheaterData( getIntent().getStringExtra(MOVIE_TITLE));
+
 
     }
 
@@ -55,11 +64,9 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
 
     @Override
     public void onTheaterDataFecthed(ArrayList<TheaterAndTimings> theaterTimingList) {
-        theaterListingAdapter = new TheaterListingAdapter(this, theaterTimingList);
-        theaterRecyclerView.setAdapter(theaterListingAdapter);
+        theaterListingAdapter.addDataToList(theaterTimingList);
         closeSpinner();
-
-    }
+   }
 
     @Override
     public Context getContext() {
@@ -78,6 +85,13 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
         }catch (Exception e){
             Log.e(TAG, "updateMovieListing: hiding spinner exception.");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        closeSpinner();
+
     }
 
 

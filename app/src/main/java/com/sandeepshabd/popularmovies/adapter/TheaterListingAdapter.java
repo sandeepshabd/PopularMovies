@@ -42,4 +42,9 @@ public class TheaterListingAdapter extends RecyclerView.Adapter<TheaterViewHolde
     public int getItemCount() {
         return theaterTimingList.size();
     }
+
+    public void addDataToList(ArrayList<TheaterAndTimings> theaterTimingList) {
+        this.theaterTimingList.addAll(theaterTimingList);
+        notifyDataSetChanged();
+    }
 }

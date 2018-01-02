@@ -21,15 +21,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/moviePoster"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/theaterTimings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/movieTitle"
-                android:layout_toRightOf="@+id/moviePoster" />
+                android:layout_below="@+id/theaterTitle"/>
 
 
 
