@@ -41,7 +41,7 @@ public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyRepo
     private final static String LNG_STRING = "-83.060303";
 
     private String movieTitleLocal = "";
-    private MovieAndTheaters movieAndTheaters;
+    private MovieAndTheaters movieAndTheaters = new MovieAndTheaters();
     final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     final Date date = new Date();
 
@@ -56,8 +56,18 @@ public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyRepo
 
     public void startFetchingTheaterData(String movieTitle) {
         movieTitleLocal = movieTitle;
-        if (movieAndTheaters == null) {
-            startFetchingMovieData();
+        boolean locationSame = false;
+        Location myLocation = getLocation();
+
+        if (movieAndTheaters == null
+                || movieAndTheaters.movieTheaterList == null
+                || movieAndTheaters.movieTheaterList.length == 0) {
+            if (myLocation == null) {
+                startFetchingMovieData(LAT_STRING, LNG_STRING);
+            } else {
+                startFetchingMovieData(myLocation.getLatitude() + "", myLocation.getLongitude() + "");
+            }
+            startFetchingMovieData(LAT_STRING, LNG_STRING);
         } else {
             filterDataAndCallSuccess();
         }
@@ -69,9 +79,10 @@ public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyRepo
         Log.i(TAG, "startFetchingTheaterData: " + theaterAndTimingsList.size());
         if (movieAndTheaters != null &&
                 movieAndTheaters.movieTheaterList != null
-                && movieAndTheaters.movieTheaterList.size() > 0) {
+                && movieAndTheaters.movieTheaterList.length > 0) {
             for (MovieTheaters movieTheaters : movieAndTheaters.movieTheaterList) {
                 if (movieTitleLocal.trim().equalsIgnoreCase(movieTheaters.title.trim())) {
+                    Log.i(TAG, "filterDataAndCallSuccess: found ");
                     for (Showtimes showtimes : movieTheaters.showtimes) {
                         TheaterAndTimings theaterAndTimings = new TheaterAndTimings();
                         theaterAndTimings.movieTheater = showtimes.theater.theaterName;
@@ -82,30 +93,27 @@ public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyRepo
                 }
 
             }
+        } else {
+            Log.i(TAG, "filterDataAndCallSuccess: movieTheaterList is empty.");
         }
-
+        Log.i(TAG, "filterDataAndCallSuccess: '" + theaterAndTimingsList.size());
         if (theaterAndTimingsList.size() == 0) {
             TheaterAndTimings theaterAndTimings = new TheaterAndTimings();
             theaterAndTimings.movieTheater = theaterdataFetcher.getContext().getString(R.string.NoMovieTheater);
             theaterAndTimingsList.add(theaterAndTimings);
         }
+
         theaterdataFetcher.onTheaterDataFecthed(theaterAndTimingsList);
     }
 
     @DebugLog
-    public void startFetchingMovieData() {
+    public void startFetchingMovieData(String lat, String lng) {
         VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper();
-        Location myLocation = getLocation();
-        if (myLocation == null) {
-            volleyRequestHelper.makeVolleyGetRequest(theaterdataFetcher.getContext(),
-                    BackOfficeDetails.getNMovieTheaters(dateFormat.format(date),
-                            LAT_STRING, LNG_STRING), this);
-        } else {
-            volleyRequestHelper.makeVolleyGetRequest(theaterdataFetcher.getContext(),
-                    BackOfficeDetails.getNMovieTheaters(dateFormat.format(date),
-                            myLocation.getLatitude() + "", myLocation.getLongitude() + "")
-                    , this);
-        }
+        movieAndTheaters.latitude = lat;
+        movieAndTheaters.longitude = lng;
+        volleyRequestHelper.makeVolleyGetRequest(theaterdataFetcher.getContext(),
+                BackOfficeDetails.getNMovieTheaters(dateFormat.format(date),
+                        lat, lng), this);
     }
 
 
@@ -168,7 +176,8 @@ public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyRepo
     private void parseTheaterData(String response) {
 
         try {
-            movieAndTheaters = gson.fromJson(response, MovieAndTheaters.class);
+            movieAndTheaters.movieTheaterList = gson.fromJson(response, MovieTheaters[].class);
+            Log.i(TAG, "parseTheaterData: " + movieAndTheaters.movieTheaterList.length);
         } catch (Exception e) {
             Log.e(TAG, "problem parsing data", e);
         }

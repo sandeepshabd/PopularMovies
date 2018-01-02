@@ -15,8 +15,8 @@ import java.util.Locale;
 public class Showtimes {
 
     private static final String TAG = Showtimes.class.getSimpleName();
-    private static final SimpleDateFormat dateFormatUS = new SimpleDateFormat("E, y-M-d 'at' h:m:s a z", Locale.getDefault());
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-ddTHH:mm", Locale.US);
+    private static final SimpleDateFormat dateFormatUS = new SimpleDateFormat("E, y-MM-dd 'at' hh:mm a z", Locale.getDefault());
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.US);
 
     @SerializedName("theatre")
     public Theater theater;
