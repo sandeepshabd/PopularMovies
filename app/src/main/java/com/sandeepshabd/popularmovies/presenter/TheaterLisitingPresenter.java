@@ -1,36 +1,188 @@
 package com.sandeepshabd.popularmovies.presenter;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.sandeepshabd.popularmovies.R;
+import com.sandeepshabd.popularmovies.activity.ErrorActivity;
 import com.sandeepshabd.popularmovies.activity.ITheaterdataFetcher;
-import com.sandeepshabd.popularmovies.activity.TheaterActivity;
-import com.sandeepshabd.popularmovies.model.TheaterAndTimings;
+import com.sandeepshabd.popularmovies.backOffice.BackOfficeDetails;
+import com.sandeepshabd.popularmovies.helper.VolleyRequestHelper;
+import com.sandeepshabd.popularmovies.model.theater.MovieAndTheaters;
+import com.sandeepshabd.popularmovies.model.theater.MovieTheaters;
+import com.sandeepshabd.popularmovies.model.theater.Showtimes;
+import com.sandeepshabd.popularmovies.model.theater.TheaterAndTimings;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import hugo.weaving.DebugLog;
 
 
 /**
  * Created by sandeepshabd on 1/1/18.
  */
 
-public class TheaterLisitingPresenter {
+public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyReponseConsumer {
     private static final String TAG = TheaterLisitingPresenter.class.getSimpleName();
+    private final Gson gson = new Gson();
+
+    private final static String LAT_STRING = "‎42.348495";
+    private final static String LNG_STRING = "-83.060303";
+
+    private String movieTitleLocal = "";
+    private MovieAndTheaters movieAndTheaters;
+    final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    final Date date = new Date();
 
     ITheaterdataFetcher theaterdataFetcher;
 
-    public TheaterLisitingPresenter(ITheaterdataFetcher theaterdataFetcher){
+    //TODO - for demo, I am not changing the data as frequently.
+
+
+    public TheaterLisitingPresenter(ITheaterdataFetcher theaterdataFetcher) {
         this.theaterdataFetcher = theaterdataFetcher;
     }
 
     public void startFetchingTheaterData(String movieTitle) {
+        movieTitleLocal = movieTitle;
+        if (movieAndTheaters == null) {
+            startFetchingMovieData();
+        } else {
+            filterDataAndCallSuccess();
+        }
+
+    }
+
+    private void filterDataAndCallSuccess() {
         ArrayList<TheaterAndTimings> theaterAndTimingsList = new ArrayList<>();
-        Log.i(TAG, "startFetchingTheaterData: "+theaterAndTimingsList.size());
-        if(theaterAndTimingsList.size() == 0){
+        Log.i(TAG, "startFetchingTheaterData: " + theaterAndTimingsList.size());
+        if (movieAndTheaters != null &&
+                movieAndTheaters.movieTheaterList != null
+                && movieAndTheaters.movieTheaterList.size() > 0) {
+            for (MovieTheaters movieTheaters : movieAndTheaters.movieTheaterList) {
+                if (movieTitleLocal.trim().equalsIgnoreCase(movieTheaters.title.trim())) {
+                    for (Showtimes showtimes : movieTheaters.showtimes) {
+                        TheaterAndTimings theaterAndTimings = new TheaterAndTimings();
+                        theaterAndTimings.movieTheater = showtimes.theater.theaterName;
+                        theaterAndTimings.movieTiming = showtimes.getShowTime();
+                        theaterAndTimingsList.add(theaterAndTimings);
+                    }
+
+                }
+
+            }
+        }
+
+        if (theaterAndTimingsList.size() == 0) {
             TheaterAndTimings theaterAndTimings = new TheaterAndTimings();
-            theaterAndTimings.movieTheater= theaterdataFetcher.getContext().getString(R.string.NoMovieTheater);
+            theaterAndTimings.movieTheater = theaterdataFetcher.getContext().getString(R.string.NoMovieTheater);
             theaterAndTimingsList.add(theaterAndTimings);
         }
         theaterdataFetcher.onTheaterDataFecthed(theaterAndTimingsList);
+    }
+
+    @DebugLog
+    public void startFetchingMovieData() {
+        VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper();
+        Location myLocation = getLocation();
+        if (myLocation == null) {
+            volleyRequestHelper.makeVolleyGetRequest(theaterdataFetcher.getContext(),
+                    BackOfficeDetails.getNMovieTheaters(dateFormat.format(date),
+                            LAT_STRING, LNG_STRING), this);
+        } else {
+            volleyRequestHelper.makeVolleyGetRequest(theaterdataFetcher.getContext(),
+                    BackOfficeDetails.getNMovieTheaters(dateFormat.format(date),
+                            myLocation.getLatitude() + "", myLocation.getLongitude() + "")
+                    , this);
+        }
+    }
+
+
+    private Location getLocation() {
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        LocationManager lm = (LocationManager) theaterdataFetcher.getContext()
+                .getSystemService(Context.LOCATION_SERVICE);
+
+        gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        Location net_loc = null, gps_loc = null, finalLoc = null;
+        try {
+
+
+            if (ActivityCompat.checkSelfPermission(theaterdataFetcher.getContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(theaterdataFetcher.getContext(),
+                            Manifest.permission.ACCESS_COARSE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                if (gps_enabled)
+                    gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (network_enabled)
+                    net_loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
+
+        } catch (Exception e) {
+        }
+
+        if (gps_loc != null && net_loc != null) {
+
+            //smaller the number more accurate result will
+            if (gps_loc.getAccuracy() > net_loc.getAccuracy())
+                finalLoc = net_loc;
+            else
+                finalLoc = gps_loc;
+
+            // I used this just to get an idea (if both avail, its upto you which you want to take as I've taken location with more accuracy)
+
+        } else {
+
+            if (gps_loc != null) {
+                finalLoc = gps_loc;
+            } else if (net_loc != null) {
+                finalLoc = net_loc;
+            }
+        }
+
+        return finalLoc;
+    }
+
+    @Override
+    public void onSuccessResponse(String response) {
+        parseTheaterData(response);
+    }
+
+    private void parseTheaterData(String response) {
+
+        try {
+            movieAndTheaters = gson.fromJson(response, MovieAndTheaters.class);
+        } catch (Exception e) {
+            Log.e(TAG, "problem parsing data", e);
+        }
+        filterDataAndCallSuccess();
+    }
+
+    @Override
+    public void onErrorReponse(VolleyError volleyError) {
+        showErrorMessage();
+    }
+
+    private void showErrorMessage() {
+        Intent errorIntent = new Intent(theaterdataFetcher.getContext(), ErrorActivity.class);
+        theaterdataFetcher.getContext().startActivity(errorIntent);
+        theaterdataFetcher.finishTheActivity();
     }
 }

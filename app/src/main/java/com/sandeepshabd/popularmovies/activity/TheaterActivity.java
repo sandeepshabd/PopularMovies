@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.sandeepshabd.popularmovies.R;
 import com.sandeepshabd.popularmovies.adapter.TheaterListingAdapter;
-import com.sandeepshabd.popularmovies.model.TheaterAndTimings;
+import com.sandeepshabd.popularmovies.model.theater.TheaterAndTimings;
 import com.sandeepshabd.popularmovies.presenter.TheaterLisitingPresenter;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
         theaterRecyclerView.setAdapter(theaterListingAdapter);
         theaterLisitingPresenter = new TheaterLisitingPresenter(this);
 
-        fetchTheaterData( getIntent().getStringExtra(MOVIE_TITLE));
+        fetchTheaterData(getIntent().getStringExtra(MOVIE_TITLE));
 
 
     }
@@ -66,7 +66,7 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
     public void onTheaterDataFecthed(ArrayList<TheaterAndTimings> theaterTimingList) {
         theaterListingAdapter.addDataToList(theaterTimingList);
         closeSpinner();
-   }
+    }
 
     @Override
     public Context getContext() {
@@ -82,7 +82,7 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
         try {
             spinnerDialog.hide();
             spinnerDialog = null;
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "updateMovieListing: hiding spinner exception.");
         }
     }
@@ -94,6 +94,9 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
 
     }
 
-
+    @Override
+    public void finishTheActivity() {
+        finish();
+    }
 
 }

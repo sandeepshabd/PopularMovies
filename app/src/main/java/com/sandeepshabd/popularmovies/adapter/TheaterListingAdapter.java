@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.sandeepshabd.popularmovies.R;
 import com.sandeepshabd.popularmovies.activity.ITheaterView;
-import com.sandeepshabd.popularmovies.model.TheaterAndTimings;
+import com.sandeepshabd.popularmovies.model.theater.TheaterAndTimings;
 
 import java.util.ArrayList;
 
