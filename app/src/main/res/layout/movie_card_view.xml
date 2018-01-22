@@ -18,9 +18,8 @@
         android:weightSum="10">
 
         <android.support.v7.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
             android:elevation="8dp"
             android:padding="10dp"
             app:cardCornerRadius="4dp"
@@ -38,8 +37,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="6"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="8dp"
+            android:padding="8dp">
 
             <TextView
                 android:id="@+id/movieTitle"
@@ -50,20 +50,22 @@
                 tools:text="Movie Title" />
 
             <TextView
-                android:id="@+id/movieRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="26sp"
-                android:textAppearance="@android:style/TextAppearance.Large"
-                tools:text="Movie Rating" />
-
-            <TextView
                 android:id="@+id/releaseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="26sp"
                 android:textAppearance="@android:style/TextAppearance.Large"
+                android:textSize="26sp"
                 tools:text="Release Date" />
+
+            <RatingBar
+                android:id="@+id/movieRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textSize="26sp"
+                tools:text="Movie Rating" />
         </LinearLayout>
 
 

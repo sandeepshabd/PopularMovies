@@ -4,6 +4,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.sandeepshabd.popularmovies.R;
@@ -17,7 +18,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder{
     CardView cardView;
     ImageView moviePoster;
     TextView movieTitle;
-    TextView movieRating;
+    RatingBar movieRating;
     TextView movieReleaseDate;
 
     public MovieViewHolder(View itemView) {

@@ -50,11 +50,11 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     public void onBindViewHolder(MovieViewHolder movieViewHolder, int position) {
         loadImage(movieViewHolder.moviePoster,
                 BackOfficeDetails.getImagePathURL(movieDetails.get(position).posterPath));
-        movieViewHolder.movieTitle.setText("Title: "+movieDetails.get(position).title);
-        movieViewHolder.movieRating.setText("Popularity: "+movieDetails.get(position).getPopularity());
-        movieViewHolder.movieReleaseDate.setText("Release Date: "+movieDetails.get(position).getReleaseDate());
-        
-        if(position+1 == getItemCount()){
+        movieViewHolder.movieTitle.setText(movieDetails.get(position).title);
+        movieViewHolder.movieRating.setRating(movieDetails.get(position).getPopularity() / 200);
+        movieViewHolder.movieReleaseDate.setText("Release Date: " + movieDetails.get(position).getReleaseDate());
+
+        if (position + 1 == getItemCount()) {
             movieDataFetcher.fetchMoreData();
         }
 
@@ -75,7 +75,8 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             glide.asBitmap()
                     .load(url)
                     .into(view);
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -83,7 +84,7 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         return movieDetails.size();
     }
 
-    public void addDataToList(ArrayList<MovieDetails> newMovieDetails){
+    public void addDataToList(ArrayList<MovieDetails> newMovieDetails) {
         movieDetails.addAll(newMovieDetails);
         notifyDataSetChanged();
     }
