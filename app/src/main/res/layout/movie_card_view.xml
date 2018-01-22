@@ -1,55 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movieCardViewID"
     android:layout_width="match_parent"
-    android:background="@drawable/rect_border"
-    android:layout_height="200dp" >
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:elevation="8dp"
+    android:padding="10dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="8dp">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/movieCardViewID"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:padding="16dp"
+        android:weightSum="10">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:elevation="8dp"
+            android:padding="10dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="8dp">
 
             <ImageView
                 android:id="@+id/moviePoster"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="10dp" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                tools:background="@mipmap/ic_launcher" />
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/movieTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/moviePoster"
-                android:textSize="26sp" />
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textSize="26sp"
+                tools:text="Movie Title" />
 
             <TextView
                 android:id="@+id/movieRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/movieTitle"
                 android:textSize="26sp"
-                android:layout_toRightOf="@+id/moviePoster" />
+                android:textAppearance="@android:style/TextAppearance.Large"
+                tools:text="Movie Rating" />
 
             <TextView
                 android:id="@+id/releaseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/movieRating"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="10dp"
                 android:textSize="26sp"
-                android:layout_toRightOf="@+id/moviePoster" />
+                android:textAppearance="@android:style/TextAppearance.Large"
+                tools:text="Release Date" />
+        </LinearLayout>
 
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
 
-</LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+

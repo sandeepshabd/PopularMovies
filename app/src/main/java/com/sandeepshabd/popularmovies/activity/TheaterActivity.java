@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.sandeepshabd.popularmovies.R;
 import com.sandeepshabd.popularmovies.adapter.TheaterListingAdapter;
+import com.sandeepshabd.popularmovies.model.MovieData;
 import com.sandeepshabd.popularmovies.model.theater.TheaterAndTimings;
 import com.sandeepshabd.popularmovies.presenter.TheaterLisitingPresenter;
 
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 public class TheaterActivity extends AppCompatActivity implements ITheaterView, ITheaterdataFetcher {
 
     private static final String TAG = TheaterActivity.class.getSimpleName();
-
     public static final String MOVIE_TITLE = "MOVIE_TITLE";
     private SpinnerDialog spinnerDialog;
     private TheaterLisitingPresenter theaterLisitingPresenter;
@@ -34,6 +34,8 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
         Toolbar movieListingToolbar = findViewById(R.id.theaterListing_toolbar);
         setSupportActionBar(movieListingToolbar);
 
+        MovieData movieData = getIntent().getExtras().getParcelable("movie_data");
+        Log.i(TAG, "onCreate: " + movieData);
         setTitle(R.string.theater);
         movieListingToolbar.setNavigationIcon(R.mipmap.ic_navigate_before_black_24dp);
         movieListingToolbar.setNavigationOnClickListener(new View.OnClickListener() {

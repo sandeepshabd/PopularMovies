@@ -46,12 +46,12 @@ public class BackOfficeDetails {
     }
 
     @DebugLog
-    public static String getNMovieTheaters(String date, String lat, String lon) {
+    public static String getNMovieTheaters(String date, String zip) {
         if (TextUtils.isEmpty(API_KEY_FOR_OPENMOVIE)) {
             //enforcing the developer to input the API key.
             throw new RuntimeException("API KEY cannot be empty.");
         }
-        return BASE_URL_FOR_MS + THEATERS_URL_FOR_MS + API_KEY_FOR_TMS + "&startDate="+date+"&lng=\""+lon+"\"&lat=\""+lat+"\"";
+        return BASE_URL_FOR_MS + THEATERS_URL_FOR_MS + API_KEY_FOR_TMS + "&startDate="+date+"&zip="+zip;
     }
 
     @DebugLog

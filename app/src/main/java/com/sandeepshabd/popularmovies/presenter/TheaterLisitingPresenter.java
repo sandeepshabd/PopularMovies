@@ -112,7 +112,7 @@ public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyRepo
         movieAndTheaters.longitude = lng;
         volleyRequestHelper.makeVolleyGetRequest(theaterdataFetcher.getContext(),
                 BackOfficeDetails.getNMovieTheaters(dateFormat.format(date),
-                        lat, lng), this);
+                        "48127"), this);
     }
 
 
