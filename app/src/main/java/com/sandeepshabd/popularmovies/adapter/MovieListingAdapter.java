@@ -48,8 +48,8 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     @Override
     public void onBindViewHolder(MovieViewHolder movieViewHolder, int position) {
-        loadImage(movieViewHolder.moviePoster,
-                BackOfficeDetails.getImagePathURL(movieDetails.get(position).posterPath));
+        String url = BackOfficeDetails.getImagePathURL(movieDetails.get(position).posterPath);
+        loadImage(movieViewHolder.moviePoster, url);
         movieViewHolder.movieTitle.setText(movieDetails.get(position).title);
         movieViewHolder.movieRating.setRating(movieDetails.get(position).getPopularity() / 200);
         movieViewHolder.movieReleaseDate.setText("Release Date: " + movieDetails.get(position).getReleaseDate());
@@ -58,14 +58,14 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             movieDataFetcher.fetchMoreData();
         }
 
-        callTheaterListing(movieViewHolder, movieDetails.get(position).title);
+        callTheaterListing(movieViewHolder, movieDetails.get(position).title, url);
     }
 
-    private void callTheaterListing(MovieViewHolder movieViewHolder, final String movieTitle) {
+    private void callTheaterListing(MovieViewHolder movieViewHolder, final String movieTitle, final String url) {
         movieViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                movieDataFetcher.onMovieSelected(movieTitle);
+                movieDataFetcher.onMovieSelected(movieTitle, url);
             }
         });
     }

@@ -1,6 +1,5 @@
 package com.sandeepshabd.popularmovies.presenter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -36,7 +35,7 @@ public class MovieListingPresenter implements VolleyRequestHelper.IVolleyReponse
         } catch (Exception e) {
             Log.e(TAG, "problem parsing data", e);
             movieResponse = new MovieResponse();
-            showErrorMessage();
+//            showErrorMessage();
         }
         return movieResponse;
     }
@@ -56,13 +55,15 @@ public class MovieListingPresenter implements VolleyRequestHelper.IVolleyReponse
     }
 
     @Override
+    @DebugLog
     public void onErrorReponse(VolleyError volleyError) {
         showErrorMessage();
     }
 
+    @DebugLog
     private void showErrorMessage() {
         Intent errorIntent = new Intent(movieListingInvoker.getActivityContext(), ErrorActivity.class);
         movieListingInvoker.getActivityContext().startActivity(errorIntent);
-        movieListingInvoker.finishTheActivity();
+//        movieListingInvoker.finishTheActivity();
     }
 }

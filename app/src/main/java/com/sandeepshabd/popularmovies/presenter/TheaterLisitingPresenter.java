@@ -184,6 +184,7 @@ public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyRepo
     }
 
     @Override
+    @DebugLog
     public void onErrorReponse(VolleyError volleyError) {
         showErrorMessage();
     }
@@ -191,6 +192,6 @@ public class TheaterLisitingPresenter implements VolleyRequestHelper.IVolleyRepo
     private void showErrorMessage() {
         Intent errorIntent = new Intent(theaterdataFetcher.getContext(), ErrorActivity.class);
         theaterdataFetcher.getContext().startActivity(errorIntent);
-        theaterdataFetcher.finishTheActivity();
+//        theaterdataFetcher.finishTheActivity();
     }
 }

@@ -1,14 +1,15 @@
 package com.sandeepshabd.popularmovies.activity;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sandeepshabd.popularmovies.R;
 import com.sandeepshabd.popularmovies.adapter.TheaterListingAdapter;
 import com.sandeepshabd.popularmovies.model.MovieData;
@@ -35,25 +36,47 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
 
         MovieData movieData = getIntent().getExtras().getParcelable("movie_data");
         Log.i(TAG, "onCreate: " + movieData);
-        setTitle(R.string.theater);
-        movieListingToolbar.setNavigationIcon(R.mipmap.ic_navigate_before_black_24dp);
-        movieListingToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        String movieTitle = getIntent().getStringExtra(MOVIE_TITLE);
+        setTitle(movieTitle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        movieListingToolbar.setNavigationIcon(R.mipmap.ic_navigate_before_black_24dp);
+//        movieListingToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
+
         theaterRecyclerView = findViewById(R.id.theaterListingRecyclerView);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        theaterRecyclerView.setLayoutManager(llm);
-        theaterRecyclerView.setHasFixedSize(false);
+        theaterRecyclerView.setHasFixedSize(true);
 
         theaterListingAdapter = new TheaterListingAdapter(this, new ArrayList<TheaterAndTimings>(), movieData);
         theaterRecyclerView.setAdapter(theaterListingAdapter);
         theaterLisitingPresenter = new TheaterLisitingPresenter(this);
 
-        fetchTheaterData(getIntent().getStringExtra(MOVIE_TITLE));
+        fetchTheaterData(movieTitle);
 
+        ImageView imageView = findViewById(R.id.backdrop);
+        String url = getIntent().getStringExtra("movie_url");
+        Glide.with(this)
+                .asBitmap()
+                .load(url)
+                .into(imageView);
+
+        TextView movieText = findViewById(R.id.movie_info);
+        movieText.setText(movieData.getTitle());
+
+        TextView movieDescription = findViewById(R.id.movie_description);
+        movieDescription.setText(movieData.getShortDescription());
+
+        TextView movieCast = findViewById(R.id.movie_cast);
+        StringBuilder castString = new StringBuilder();
+        for (String cast : movieData.getTopCast()) {
+            castString.append(cast);
+            castString.append("\n");
+        }
+
+        movieCast.setText(castString.toString());
 
     }
 
@@ -92,7 +115,6 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
     protected void onDestroy() {
         super.onDestroy();
         closeSpinner();
-
     }
 
     @Override

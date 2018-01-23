@@ -6,5 +6,5 @@ package com.sandeepshabd.popularmovies.activity;
 
 public interface IMovieDataFetcher {
     void fetchMoreData();
-    void onMovieSelected(String title);
+    void onMovieSelected(String title, String url);
 }

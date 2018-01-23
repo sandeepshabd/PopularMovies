@@ -19,10 +19,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ErrorActivity" />
+        <activity
+            android:name=".activity.ErrorActivity"
+            android:parentActivityName=".activity.MovieListingActivity" />
         <activity android:name=".activity.MovieListingActivity" />
-        <activity android:name=".activity.AboutActivity" />
-        <activity android:name=".activity.TheaterActivity"></activity>
+        <activity
+            android:name=".activity.AboutActivity"
+            android:parentActivityName=".activity.MovieListingActivity" />
+        <activity
+            android:name=".activity.TheaterActivity"
+            android:parentActivityName=".activity.MovieListingActivity" />
     </application>
 
 </manifest>

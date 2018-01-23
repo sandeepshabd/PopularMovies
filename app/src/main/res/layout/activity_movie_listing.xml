@@ -28,12 +28,14 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
+    <com.sandeepshabd.popularmovies.adapter.AutofitRecyclerView
         android:id="@+id/movieListingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="1dp"
-        tools:listitem="@layout/theater_card_view" />
+        android:clipToPadding="false"
+        android:columnWidth="800dp"
+        tools:listitem="@layout/movie_card_view" />
 
 
 </LinearLayout>

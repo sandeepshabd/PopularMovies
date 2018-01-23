@@ -4,7 +4,6 @@ package com.sandeepshabd.popularmovies.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -34,8 +33,8 @@ import hugo.weaving.DebugLog;
 
 
 /*
-* This class will show the movie listings based on popularity
-* */
+ * This class will show the movie listings based on popularity
+ * */
 public class MovieListingActivity extends BaseActivity implements IMovieDataFetcher, IMovieListingInvoker, VolleyRequestHelper.IVolleyReponseConsumer {
 
     private static final String TAG = MovieListingActivity.class.getSimpleName();
@@ -71,9 +70,9 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
         movieResponse = movieListingPresenter.parseMovieData(movieData);
 
         movieListingRecyclerView = findViewById(R.id.movieListingRecyclerView);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        movieListingRecyclerView.setLayoutManager(llm);
-        movieListingRecyclerView.setHasFixedSize(false);
+//        LinearLayoutManager llm = new LinearLayoutManager(this);
+//        movieListingRecyclerView.setLayoutManager(llm);
+        movieListingRecyclerView.setHasFixedSize(true);
 
         movieListingAdapter
                 = new MovieListingAdapter(Glide.with(this)
@@ -90,10 +89,21 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    @DebugLog
     protected void onDestroy() {
         super.onDestroy();
         closeSpinner();
+    }
 
+    @Override
+    @DebugLog
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -105,7 +115,7 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
     }
 
     @Override
-    public void onMovieSelected(String title) {
+    public void onMovieSelected(String title, String url) {
         Intent myIntent = new Intent(MovieListingActivity.this, TheaterActivity.class);
         myIntent.putExtra(TheaterActivity.MOVIE_TITLE, title); //Optional parameters
         MovieData movieData = new MovieData();
@@ -116,6 +126,7 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
                 Log.i(TAG, "onMovieSelected: " + moviedata.getTitle());
             }
         }
+        myIntent.putExtra("movie_url", url);
         myIntent.putExtra("movie_data", movieData);
         MovieListingActivity.this.startActivity(myIntent);
     }
