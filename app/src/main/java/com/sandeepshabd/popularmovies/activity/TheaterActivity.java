@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,12 +72,15 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
 
         TextView movieCast = findViewById(R.id.movie_cast);
         StringBuilder castString = new StringBuilder();
-        for (String cast : movieData.getTopCast()) {
-            castString.append(cast);
-            castString.append("\n");
-        }
+        if (movieData != null) {
+            for (String cast : movieData.getTopCast()) {
+                castString.append(cast);
+                castString.append("\n");
+            }
 
-        movieCast.setText(castString.toString());
+            movieCast.setText(castString.toString());
+            movieCast.setVisibility(View.VISIBLE);
+        }
 
     }
 

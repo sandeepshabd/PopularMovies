@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="15dp">
 
@@ -31,6 +31,7 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
+                android:transitionName="details"
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
@@ -38,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             </android.support.v7.widget.Toolbar>
 
@@ -78,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/card_margin"
                     android:text="Movie Description"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <TextView
                     android:id="@+id/movie_cast"
@@ -86,7 +87,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/card_margin"
                     android:text="Movie Cast"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:visibility="invisible"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <com.sandeepshabd.popularmovies.adapter.AutofitRecyclerView
                     android:id="@+id/theaterListingRecyclerView"

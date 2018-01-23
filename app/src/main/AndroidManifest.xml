@@ -22,13 +22,16 @@
         <activity
             android:name=".activity.ErrorActivity"
             android:parentActivityName=".activity.MovieListingActivity" />
-        <activity android:name=".activity.MovieListingActivity" />
+        <activity
+            android:name=".activity.MovieListingActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.AboutActivity"
             android:parentActivityName=".activity.MovieListingActivity" />
         <activity
             android:name=".activity.TheaterActivity"
-            android:parentActivityName=".activity.MovieListingActivity" />
+            android:parentActivityName=".activity.MovieListingActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

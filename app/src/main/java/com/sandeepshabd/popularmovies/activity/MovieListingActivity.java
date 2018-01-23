@@ -4,6 +4,7 @@ package com.sandeepshabd.popularmovies.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -128,10 +129,13 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
         }
         myIntent.putExtra("movie_url", url);
         myIntent.putExtra("movie_data", movieData);
-        MovieListingActivity.this.startActivity(myIntent);
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, aboutInfoButton, "profile");
+        MovieListingActivity.this.startActivity(myIntent, options.toBundle());
     }
 
     @Override
+    @DebugLog
     public void finishTheActivity() {
         finish();
     }
