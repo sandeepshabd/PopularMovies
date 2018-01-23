@@ -8,4 +8,5 @@
     <string name="pleaseScroll">List updated. Please scroll.</string>
     <string name="theater">Theaters</string>
     <string name="NoMovieTheater">No nearby theater showing this movie.</string>
+    <string name="ACTIVITY_TELENAV_SEARCH" translatable="false">com.telenav.arp.activity.NAVIGATION_SEARCH</string>
 </resources>

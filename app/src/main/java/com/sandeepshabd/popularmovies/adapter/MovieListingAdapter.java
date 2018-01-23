@@ -52,7 +52,7 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         loadImage(movieViewHolder.moviePoster, url);
         movieViewHolder.movieTitle.setText(movieDetails.get(position).title);
         movieViewHolder.movieRating.setRating(movieDetails.get(position).getPopularity() / 200);
-        movieViewHolder.movieReleaseDate.setText("Release Date: " + movieDetails.get(position).getReleaseDate());
+        movieViewHolder.movieReleaseDate.setText(movieDetails.get(position).getReleaseDate());
 
         if (position + 1 == getItemCount()) {
             movieDataFetcher.fetchMoreData();

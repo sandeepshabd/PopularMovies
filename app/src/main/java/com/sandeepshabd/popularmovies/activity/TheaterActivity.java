@@ -54,6 +54,7 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
 
         theaterListingAdapter = new TheaterListingAdapter(this, new ArrayList<TheaterAndTimings>(), movieData);
         theaterRecyclerView.setAdapter(theaterListingAdapter);
+        theaterRecyclerView.setNestedScrollingEnabled(false);
         theaterLisitingPresenter = new TheaterLisitingPresenter(this);
 
         fetchTheaterData(movieTitle);
