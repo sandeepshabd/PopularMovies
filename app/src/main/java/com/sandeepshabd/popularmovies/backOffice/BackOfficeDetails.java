@@ -25,7 +25,6 @@ public class BackOfficeDetails {
     final private static String THEATERS_URL_FOR_MS = "/v1.1/movies/showings?api_key=";
 
 
-
     // The method returns the uri for popular movie
     @DebugLog
     public static String getPopularMoviesURL(int page) {
@@ -42,7 +41,7 @@ public class BackOfficeDetails {
             //enforcing the developer to input the API key.
             throw new RuntimeException("API KEY cannot be empty.");
         }
-        return BASE_URL_FOR_OPENMOVIE + NOWPLAYING_URL_FOR_OPENMOVIE + API_KEY_FOR_OPENMOVIE + "&language=en-US&page=" + page ;
+        return BASE_URL_FOR_OPENMOVIE + NOWPLAYING_URL_FOR_OPENMOVIE + API_KEY_FOR_OPENMOVIE + "&language=en-US&page=" + page;
     }
 
     @DebugLog
@@ -51,7 +50,7 @@ public class BackOfficeDetails {
             //enforcing the developer to input the API key.
             throw new RuntimeException("API KEY cannot be empty.");
         }
-        return BASE_URL_FOR_MS + THEATERS_URL_FOR_MS + API_KEY_FOR_TMS + "&startDate="+date+"&zip="+zip;
+        return BASE_URL_FOR_MS + THEATERS_URL_FOR_MS + API_KEY_FOR_TMS + "&startDate=" + date + "&zip=" + zip + "&radius=20";
     }
 
     @DebugLog

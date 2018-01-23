@@ -24,7 +24,10 @@ import com.sandeepshabd.popularmovies.model.MovieData;
 import com.sandeepshabd.popularmovies.model.MovieResponse;
 import com.sandeepshabd.popularmovies.presenter.MovieListingPresenter;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import hugo.weaving.DebugLog;
@@ -77,9 +80,12 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
                 , movieResponse.movieDetailsList, this);
         movieListingRecyclerView.setAdapter(movieListingAdapter);
 
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final Date date = new Date();
+        Log.i(TAG, "onCreate: " + dateFormat.format(date));
         VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper();
         volleyRequestHelper.makeVolleyGetRequest(this,
-                BackOfficeDetails.getNMovieTheaters("2018-01-22", "48127"),
+                BackOfficeDetails.getNMovieTheaters(dateFormat.format(date), "48127"),
                 this);
     }
 
@@ -89,7 +95,6 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
         closeSpinner();
 
     }
-
 
     @Override
     public void fetchMoreData() {
@@ -104,10 +109,11 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
         Intent myIntent = new Intent(MovieListingActivity.this, TheaterActivity.class);
         myIntent.putExtra(TheaterActivity.MOVIE_TITLE, title); //Optional parameters
         MovieData movieData = new MovieData();
+        Log.d(TAG, "onMovieSelected: " + movieDataList);
         for (MovieData moviedata : movieDataList) {
             if (moviedata.getTitle().equalsIgnoreCase(title)) {
                 movieData = moviedata;
-                Log.i(TAG, "onMovieSelected: "+ moviedata.getTitle());
+                Log.i(TAG, "onMovieSelected: " + moviedata.getTitle());
             }
         }
         myIntent.putExtra("movie_data", movieData);
@@ -145,7 +151,11 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
     @Override
     public void onSuccessResponse(String response) {
         Log.i(TAG, "onSuccessResponse: " + response);
-        parseMovieData(response);
+        if (!response.isEmpty()) {
+            parseMovieData(response);
+        } else {
+            Log.i(TAG, "Response is empty: ");
+        }
     }
 
     @Override
@@ -157,6 +167,7 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
         try {
             movieDataList = new Gson().fromJson(movieData, new TypeToken<List<MovieData>>() {
             }.getType());
+            Log.d(TAG, "parseMovieData: " + movieDataList);
         } catch (Exception e) {
             Log.e(TAG, "problem parsing data", e);
         }

@@ -23,7 +23,6 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
     public static final String MOVIE_TITLE = "MOVIE_TITLE";
     private SpinnerDialog spinnerDialog;
     private TheaterLisitingPresenter theaterLisitingPresenter;
-
     private RecyclerView theaterRecyclerView;
     private TheaterListingAdapter theaterListingAdapter;
 
@@ -49,7 +48,7 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
         theaterRecyclerView.setLayoutManager(llm);
         theaterRecyclerView.setHasFixedSize(false);
 
-        theaterListingAdapter = new TheaterListingAdapter(this, new ArrayList<TheaterAndTimings>());
+        theaterListingAdapter = new TheaterListingAdapter(this, new ArrayList<TheaterAndTimings>(), movieData);
         theaterRecyclerView.setAdapter(theaterListingAdapter);
         theaterLisitingPresenter = new TheaterLisitingPresenter(this);
 

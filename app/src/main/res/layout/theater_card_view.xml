@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/rect_border"
-    android:layout_height="200dp" >
+    android:layout_height="200dp"
+    android:background="@drawable/rect_border">
 
     <android.support.v7.widget.CardView
         android:id="@+id/theaterCardViewID"
@@ -15,21 +16,29 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-
             <TextView
                 android:id="@+id/theaterTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:textSize="26sp" />
+                android:textSize="26sp"
+                tools:text="AMC Fairlane 21" />
 
             <TextView
-                android:id="@+id/theaterTimings"
+                android:id="@+id/theaterDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/theaterTitle"
                 android:textSize="26sp"
-                android:layout_below="@+id/theaterTitle"/>
+                tools:text="2018-01-22" />
 
+            <TextView
+                android:id="@+id/theaterTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/theaterDate"
+                android:textSize="26sp"
+                tools:text="5:45" />
 
 
         </RelativeLayout>

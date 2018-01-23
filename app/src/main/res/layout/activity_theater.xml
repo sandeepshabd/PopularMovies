@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="1dp"
-        tools:listitem="@layout/movie_card_view" />
+        tools:listitem="@layout/theater_card_view" />
 
 
 </LinearLayout>

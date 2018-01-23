@@ -15,13 +15,15 @@ public class TheaterViewHolder extends  RecyclerView.ViewHolder {
 
     CardView cardView;
     TextView theaterTitle;
-    TextView movieTiming;
+    TextView movieDate;
+    TextView movieTime;
 
     public TheaterViewHolder(View itemView) {
         super(itemView);
 
         cardView = itemView.findViewById(R.id.theaterCardViewID);
         theaterTitle = itemView.findViewById(R.id.theaterTitle);
-        movieTiming = itemView.findViewById(R.id.theaterTimings);
+        movieDate = itemView.findViewById(R.id.theaterDate);
+        movieTime = itemView.findViewById(R.id.theaterTime);
     }
 }
