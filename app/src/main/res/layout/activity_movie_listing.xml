@@ -23,15 +23,14 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="right"
             android:clickable="true"
-            android:src="@mipmap/ic_info_black_24dp"
-            android:transitionName="details" />
+            android:src="@mipmap/ic_info_black_24dp"/>
 
     </android.support.v7.widget.Toolbar>
 
     <com.sandeepshabd.popularmovies.adapter.AutofitRecyclerView
         android:id="@+id/movieListingRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:clipToPadding="false"
         android:columnWidth="600dp"

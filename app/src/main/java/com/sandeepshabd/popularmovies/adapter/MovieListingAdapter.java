@@ -61,11 +61,11 @@ public class MovieListingAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         callTheaterListing(movieViewHolder, movieDetails.get(position).title, url);
     }
 
-    private void callTheaterListing(MovieViewHolder movieViewHolder, final String movieTitle, final String url) {
+    private void callTheaterListing(final MovieViewHolder movieViewHolder, final String movieTitle, final String url) {
         movieViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                movieDataFetcher.onMovieSelected(movieTitle, url);
+                movieDataFetcher.onMovieSelected(movieTitle, url, movieViewHolder.moviePoster);
             }
         });
     }

@@ -92,7 +92,7 @@ public class TheaterListingAdapter extends RecyclerView.Adapter<TheaterViewHolde
 
     @Override
     public int getItemCount() {
-        return theaterTimingList.size();
+        return movieDataList.getShowtimes().size();
     }
 
     public void addDataToList(ArrayList<TheaterAndTimings> theaterTimingList) {

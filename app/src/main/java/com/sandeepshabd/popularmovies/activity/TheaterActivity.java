@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,16 +48,6 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
 //            }
 //        });
 
-        theaterRecyclerView = findViewById(R.id.theaterListingRecyclerView);
-        theaterRecyclerView.setHasFixedSize(true);
-
-        theaterListingAdapter = new TheaterListingAdapter(this, new ArrayList<TheaterAndTimings>(), movieData);
-        theaterRecyclerView.setAdapter(theaterListingAdapter);
-        theaterRecyclerView.setNestedScrollingEnabled(false);
-        theaterLisitingPresenter = new TheaterLisitingPresenter(this);
-
-        fetchTheaterData(movieTitle);
-
         ImageView imageView = findViewById(R.id.backdrop);
         String url = getIntent().getStringExtra("movie_url");
         Glide.with(this)
@@ -72,30 +61,38 @@ public class TheaterActivity extends AppCompatActivity implements ITheaterView, 
         TextView movieDescription = findViewById(R.id.movie_description);
         movieDescription.setText(movieData.getShortDescription());
 
+        theaterRecyclerView = findViewById(R.id.theaterListingRecyclerView);
+        theaterRecyclerView.setHasFixedSize(true);
+
+        theaterListingAdapter = new TheaterListingAdapter(this, new ArrayList<TheaterAndTimings>(), movieData);
+        theaterRecyclerView.setAdapter(theaterListingAdapter);
+        theaterRecyclerView.setNestedScrollingEnabled(false);
+        theaterLisitingPresenter = new TheaterLisitingPresenter(this);
         TextView movieCast = findViewById(R.id.movie_cast);
         StringBuilder castString = new StringBuilder();
-        if (movieData != null) {
-            for (String cast : movieData.getTopCast()) {
-                castString.append(cast);
-                castString.append("\n");
-            }
+//        if (movieData != null) {
+//            for (String cast : movieData.getTopCast()) {
+//                castString.append(cast);
+//                castString.append("\n");
+//            }
+//
+//            movieCast.setText(castString.toString());
+//            movieCast.setVisibility(View.VISIBLE);
+//        }
 
-            movieCast.setText(castString.toString());
-            movieCast.setVisibility(View.VISIBLE);
-        }
-
+//        fetchTheaterData(movieTitle);
     }
 
     public void fetchTheaterData(String movieTitle) {
-        spinnerDialog = new SpinnerDialog(this);
-        spinnerDialog.show();
+//        spinnerDialog = new SpinnerDialog(this);
+//        spinnerDialog.show();
         theaterLisitingPresenter.startFetchingTheaterData(movieTitle);
     }
 
     @Override
     public void onTheaterDataFecthed(ArrayList<TheaterAndTimings> theaterTimingList) {
         theaterListingAdapter.addDataToList(theaterTimingList);
-        closeSpinner();
+//        closeSpinner();
     }
 
     @Override

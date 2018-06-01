@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -116,8 +117,8 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
     }
 
     @Override
-    public void onMovieSelected(String title, String url) {
-        Intent myIntent = new Intent(MovieListingActivity.this, TheaterActivity.class);
+    public void onMovieSelected(String title, String url, ImageView moviePoster) {
+        Intent myIntent = new Intent(this, TheaterActivity.class);
         myIntent.putExtra(TheaterActivity.MOVIE_TITLE, title); //Optional parameters
         MovieData movieData = new MovieData();
         Log.d(TAG, "onMovieSelected: " + movieDataList);
@@ -130,7 +131,7 @@ public class MovieListingActivity extends BaseActivity implements IMovieDataFetc
         myIntent.putExtra("movie_url", url);
         myIntent.putExtra("movie_data", movieData);
         ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(this, aboutInfoButton, "profile");
+                makeSceneTransitionAnimation(this, moviePoster, "details");
         MovieListingActivity.this.startActivity(myIntent, options.toBundle());
     }
 
